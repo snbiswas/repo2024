@@ -1,0 +1,36 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Web Application</title>
+</head>
+<body>
+    <h1>Interactive Web Application</h1>
+    <form id="nameForm">
+        <label for="name">Enter Your Name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="response"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#nameForm').submit(function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '/process',
+                    data: formData,
+                    success: function(response) {
+                        $('#response').text(response.message);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
